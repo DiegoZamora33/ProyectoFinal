@@ -1,0 +1,5 @@
+${PODS_ROOT}/Target Support Files/Pods-FindFood/Pods-FindFood-frameworks.sh
+${BUILT_PRODUCTS_DIR}/HideKeyboardTapGestureManager/HideKeyboardTapGestureManager.framework
+${BUILT_PRODUCTS_DIR}/LoadingAlert/LoadingAlert.framework
+${BUILT_PRODUCTS_DIR}/OnboardKit/OnboardKit.framework
+${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework

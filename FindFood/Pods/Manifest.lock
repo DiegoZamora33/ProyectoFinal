@@ -1,0 +1,28 @@
+PODS:
+  - HideKeyboardTapGestureManager (1.1.1)
+  - LoadingAlert (1.3.0)
+  - OnboardKit (1.5.0)
+  - SideMenu (6.5.0)
+
+DEPENDENCIES:
+  - HideKeyboardTapGestureManager (~> 1.1)
+  - LoadingAlert (~> 1.3)
+  - OnboardKit (~> 1.5)
+  - SideMenu (~> 6.5)
+
+SPEC REPOS:
+  trunk:
+    - HideKeyboardTapGestureManager
+    - LoadingAlert
+    - OnboardKit
+    - SideMenu
+
+SPEC CHECKSUMS:
+  HideKeyboardTapGestureManager: d943b963b442d5095784d86c12ba8e6f2cb68ee1
+  LoadingAlert: 4771a10f2f7558b76829e3c83eb3a172d42f24dc
+  OnboardKit: 73a4e9c9a1ae88afee0514ac3f2bc4f82126b66e
+  SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
+
+PODFILE CHECKSUM: a96d97a26d47fe91f016dfe0b26e5c091f7d5913
+
+COCOAPODS: 1.10.1

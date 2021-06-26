@@ -1,0 +1,6 @@
+framework module LoadingAlert {
+  umbrella header "LoadingAlert-umbrella.h"
+
+  export *
+  module * { export * }
+}

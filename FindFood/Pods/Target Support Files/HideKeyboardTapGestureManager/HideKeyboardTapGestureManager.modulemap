@@ -1,0 +1,6 @@
+framework module HideKeyboardTapGestureManager {
+  umbrella header "HideKeyboardTapGestureManager-umbrella.h"
+
+  export *
+  module * { export * }
+}
