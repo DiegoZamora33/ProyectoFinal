@@ -3,6 +3,16 @@
     {
       "filename" : "Onboarding2.png",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "darkOnboarding2.png",
+      "idiom" : "universal"
     }
   ],
   "info" : {

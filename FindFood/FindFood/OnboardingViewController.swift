@@ -50,27 +50,32 @@ class OnboardingViewController: UIViewController {
     //MARK: - Render de Onboarding
     func renderOnboarding() {
         
-            let actionButtonStyling: OnboardViewController.ButtonStyling = { button in
-              button.setTitleColor(.black, for: .normal)
-              button.titleLabel?.font = UIFont.systemFont(ofSize: 22.0, weight: .semibold)
-              button.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
-              button.layer.cornerRadius = button.bounds.height / 2.0
-              button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
-              button.layer.shadowColor = UIColor.black.cgColor
-              button.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-              button.layer.shadowRadius = 2.0
-              button.layer.shadowOpacity = 0.2
-            }
-            let appearance = OnboardViewController.AppearanceConfiguration(advanceButtonStyling: actionButtonStyling,
-                                                                            actionButtonStyling: actionButtonStyling)
+        let actionButtonStyling: OnboardViewController.ButtonStyling = { button in
+            button.setTitleColor(.label, for: .normal)
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 22.0, weight: .semibold)
+            button.titleLabel?.textColor = .label
+            button.backgroundColor = .systemBackground
+            button.layer.cornerRadius = button.bounds.height / 2.0
+            button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+            button.layer.shadowColor = UIColor.black.cgColor
+            button.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+            button.layer.shadowRadius = 2.0
+            button.layer.shadowOpacity = 0.2
+        }
+        
+        //let appearance = OnboardViewController.AppearanceConfiguration(advanceButtonStyling: actionButtonStyling, actionButtonStyling: actionButtonStyling)
+            
+        
+        let appearance = OnboardViewController.AppearanceConfiguration(tintColor: .label, titleColor: .label, textColor: .label, backgroundColor: .systemBackground, imageContentMode: .scaleAspectFit, titleFont: UIFont(name: "Noteworthy Bold", size: 24)!, textFont: UIFont(name: "Arial", size: 18)!, advanceButtonStyling: actionButtonStyling, actionButtonStyling: actionButtonStyling)
         
         
-            let onboardingVC = OnboardViewController(pageItems: onboardingPages,
+        
+        let onboardingVC = OnboardViewController(pageItems: onboardingPages,
                                                      appearanceConfiguration: appearance, completion: {
                                                         self.performSegue(withIdentifier: "Login", sender: self)
                                                     })
         
-            //onboardingVC.modalPresentationStyle = .formSheet
+        //onboardingVC.modalPresentationStyle = .formSheet
         
         onboardingVC.modalPresentationStyle = .fullScreen
             onboardingVC.presentFrom(self, animated: true)

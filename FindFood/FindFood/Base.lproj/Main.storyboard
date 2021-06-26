@@ -222,6 +222,24 @@
                                     <constraint firstItem="FeA-w8-pWR" firstAttribute="centerY" secondItem="44W-DD-QfT" secondAttribute="centerY" id="xXF-UR-uQ5"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Onboarding2" translatesAutoresizingMaskIntoConstraints="NO" id="L0T-f5-mP8">
+                                <rect key="frame" x="87" y="374" width="239" height="243"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PfW-HQ-W9L">
+                                <rect key="frame" x="178" y="241" width="0.0" height="0.0"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="0.0"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgZ-Qq-vck">
+                                <rect key="frame" x="136" y="308" width="113" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="AppleSymbols" family="Apple Symbols" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="31A-fm-yPN"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -319,6 +337,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Onboarding2" width="2000" height="841"/>
         <image name="addIcon" width="512" height="512"/>
         <image name="iconMenu" width="1024" height="1024"/>
         <image name="lightGPS" width="512" height="512"/>
