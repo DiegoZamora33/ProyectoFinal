@@ -18,9 +18,9 @@ class OnboardingViewController: UIViewController {
     
     //MARK: - PAGES ONBOARDING
     lazy var onboardingPages: [OnboardPage] = {
-       let pageOne = OnboardPage(title: "Welcome to Habitat",
-                                 imageName: "Onboarding1",
-                                 description: "Habitat is an easy to use productivity app designed to keep you motivated.")
+       let pageOne = OnboardPage(title: "Bienvenido a FindFood!",
+                                 imageName: "logoFindFood",
+                                 description: "Forma parte de nuestra enorme comunidad, con casi mas de 500,000 usuarios. \n\n FindFood es una aplicacion bastante Intuitiva y ademas totalmete GRATIS.")
 
        let pageTwo = OnboardPage(title: "Habit Entries",
                                  imageName: "Onboarding2",
@@ -93,12 +93,6 @@ class OnboardingViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: LoadingAlert.bind {
             self.renderOnboarding()
         })
-        
-    }
-
-    @IBAction func btnBoard(_ sender: UIButton) {
-        
-        performSegue(withIdentifier: "Login", sender: self)
         
     }
     
