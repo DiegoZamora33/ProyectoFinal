@@ -62,8 +62,6 @@ class OnboardingViewController: UIViewController {
             button.layer.shadowRadius = 2.0
             button.layer.shadowOpacity = 0.2
         }
-        
-        //let appearance = OnboardViewController.AppearanceConfiguration(advanceButtonStyling: actionButtonStyling, actionButtonStyling: actionButtonStyling)
             
         
         let appearance = OnboardViewController.AppearanceConfiguration(tintColor: .label, titleColor: .label, textColor: .label, backgroundColor: .systemBackground, imageContentMode: .scaleAspectFit, titleFont: UIFont(name: "Noteworthy Bold", size: 24)!, textFont: UIFont(name: "Arial", size: 18)!, advanceButtonStyling: actionButtonStyling, actionButtonStyling: actionButtonStyling)

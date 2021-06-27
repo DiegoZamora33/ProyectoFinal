@@ -14,6 +14,7 @@
 		A46155F62685B34600F602E4 /* EtaAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46155F52685B34600F602E4 /* EtaAnnotationView.swift */; };
 		A4815AED2687085500DFFBD0 /* NewResenaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4815AEC2687085500DFFBD0 /* NewResenaViewController.swift */; };
 		A4815AEF26870A2000DFFBD0 /* RateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4815AEE26870A2000DFFBD0 /* RateView.swift */; };
+		A4815AF126883ADB00DFFBD0 /* VerResenaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4815AF026883ADB00DFFBD0 /* VerResenaViewController.swift */; };
 		A4BF4D9F2682ECEE0085854B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BF4D9E2682ECEE0085854B /* AppDelegate.swift */; };
 		A4BF4DA12682ECEE0085854B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BF4DA02682ECEE0085854B /* SceneDelegate.swift */; };
 		A4BF4DA32682ECEE0085854B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BF4DA22682ECEE0085854B /* ViewController.swift */; };
@@ -53,6 +54,7 @@
 		A46155F52685B34600F602E4 /* EtaAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtaAnnotationView.swift; sourceTree = "<group>"; };
 		A4815AEC2687085500DFFBD0 /* NewResenaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewResenaViewController.swift; sourceTree = "<group>"; };
 		A4815AEE26870A2000DFFBD0 /* RateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateView.swift; sourceTree = "<group>"; };
+		A4815AF026883ADB00DFFBD0 /* VerResenaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerResenaViewController.swift; sourceTree = "<group>"; };
 		A4BF4D9B2682ECEE0085854B /* FindFood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindFood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4BF4D9E2682ECEE0085854B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4BF4DA02682ECEE0085854B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				A46155F52685B34600F602E4 /* EtaAnnotationView.swift */,
 				A4815AEC2687085500DFFBD0 /* NewResenaViewController.swift */,
 				A4815AEE26870A2000DFFBD0 /* RateView.swift */,
+				A4815AF026883ADB00DFFBD0 /* VerResenaViewController.swift */,
 			);
 			path = FindFood;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				A46155F02685B1E300F602E4 /* DirectionButton.swift in Sources */,
 				A46155F62685B34600F602E4 /* EtaAnnotationView.swift in Sources */,
 				A4BF4DA32682ECEE0085854B /* ViewController.swift in Sources */,
+				A4815AF126883ADB00DFFBD0 /* VerResenaViewController.swift in Sources */,
 				A4BF4D9F2682ECEE0085854B /* AppDelegate.swift in Sources */,
 				A46155F42685B2C700F602E4 /* EtaAnnotation.swift in Sources */,
 				A4C68DA72685941300020004 /* OnboardingViewController.swift in Sources */,

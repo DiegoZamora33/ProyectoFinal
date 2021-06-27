@@ -17,6 +17,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     //MARK: - Variables y Outlets
     @IBOutlet weak var miMapa: MKMapView!
     @IBOutlet weak var boxSearch: UISearchBar!
+    @IBOutlet weak var btnAddResena: UIButton!
     
     var miUbicacion: CLLocation?
     let hideKeyboardTapGestureManager = HideKeyboardTapGestureManager()
@@ -34,6 +35,18 @@ class ViewController: UIViewController, MKMapViewDelegate {
     //MARK: - DID LOAD
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /// Le damos un estilo Nice al ADD Resena
+        btnAddResena.setTitleColor(.label, for: .normal)
+        btnAddResena.titleLabel?.font = UIFont.systemFont(ofSize: 22.0, weight: .semibold)
+        btnAddResena.titleLabel?.textColor = .label
+        btnAddResena.backgroundColor = .systemBackground
+        btnAddResena.layer.cornerRadius = btnAddResena.bounds.height / 2.0
+        btnAddResena.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+        btnAddResena.layer.shadowColor = UIColor.black.cgColor
+        btnAddResena.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        btnAddResena.layer.shadowRadius = 2.0
+        btnAddResena.layer.shadowOpacity = 0.2
         
         /// Agregamos Gesture Taps para ocultar Teclado
         hideKeyboardTapGestureManager.add(targets: [miMapa])
