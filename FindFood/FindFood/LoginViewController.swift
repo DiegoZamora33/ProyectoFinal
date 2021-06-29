@@ -7,6 +7,7 @@
 
 import UIKit
 import LoadingAlert
+import HideKeyboardTapGestureManager
 
 class LoginViewController: UIViewController {
 
@@ -14,14 +15,21 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var txtInicioSesion: UILabel!
     @IBOutlet weak var inicioGoogle: UIButton!
     @IBOutlet weak var singIn: UIButton!
+    @IBOutlet var superView: UIView!
+    
+    
+    let hideKeyboardTapGestureManager = HideKeyboardTapGestureManager()
     
     
     //MARK: - DID LOAD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /// Agregamos Gesture Taps para ocultar Teclado
+        hideKeyboardTapGestureManager.add(targets: [superView])
+        
         /// Le damos estilo a mi boton Google
-        inicioGoogle.setTitleColor(.label, for: .normal)
+        inicioGoogle.setTitleColor(.black, for: .normal)
         inicioGoogle.titleLabel?.font = UIFont.systemFont(ofSize: 22.0, weight: .semibold)
         inicioGoogle.titleLabel?.textColor = .black
         inicioGoogle.backgroundColor = .white
@@ -33,7 +41,7 @@ class LoginViewController: UIViewController {
         inicioGoogle.layer.shadowOpacity = 0.2
         
         /// Le damos estilo a mi boton SingIn
-        singIn.setTitleColor(.label, for: .normal)
+        singIn.setTitleColor(.black, for: .normal)
         singIn.titleLabel?.font = UIFont.systemFont(ofSize: 22.0, weight: .semibold)
         singIn.titleLabel?.textColor = .black
         singIn.backgroundColor = .white

@@ -6,17 +6,26 @@
 //
 
 import UIKit
+import CoreLocation
+import HideKeyboardTapGestureManager
 
 class NewResenaViewController: UIViewController {
     
     //MARK: - Variables y Outlets
     @IBOutlet weak var myRateView: RateView!
     @IBOutlet weak var btnEnviar: UIButton!
+    @IBOutlet var superView: UIView!
+    
+    var miUbicacion: CLLocationCoordinate2D?
+    let hideKeyboardTapGestureManager = HideKeyboardTapGestureManager()
     
     
     //MARK: - DID LOAD
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /// Agregamos Gesture Taps para ocultar Teclado
+        hideKeyboardTapGestureManager.add(targets: [superView])
         
         /// Valor Default a mi StarView
         myRateView.rating = 1

@@ -14,6 +14,7 @@ class EtaAnnotationView: MKAnnotationView {
     open var pinColor = UIColor(red: 1.00, green: 0.50, blue: 0.00, alpha: 1.0)
     open var pinSecondaryColor = UIColor.white
     open var rightButton: UIButton?
+    open var leftButton: UIButton?
     
     public override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
@@ -28,23 +29,26 @@ class EtaAnnotationView: MKAnnotationView {
         
     }
     
-    open override var leftCalloutAccessoryView: UIView? {
-        didSet {
-            leftCalloutAccessoryView?.backgroundColor = pinColor
-        }
-    }
+    
     
     public func setDetailShowButton() {
         //Detailed toilet info button
         rightButton = UIButton.init(type: .detailDisclosure)
         rightButton?.tintColor = pinColor
+        rightButton?.setImage(UIImage(systemName: "sun.min"), for: .normal)
         
         rightCalloutAccessoryView = rightButton
         
+        
+        //Detailed toilet info button
+        leftButton = UIButton.init(type: .detailDisclosure)
+        leftButton?.tintColor = .systemPurple
+        leftButton?.setImage(UIImage(systemName: "location"), for: .normal)
+        
+        leftCalloutAccessoryView = leftButton
 
     }
     
-
     
     
     required public init?(coder aDecoder: NSCoder) {

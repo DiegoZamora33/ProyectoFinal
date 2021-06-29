@@ -20,6 +20,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var btnAddResena: UIButton!
     
     var miUbicacion: CLLocation?
+    var newUbicacion: CLLocationCoordinate2D?
     let hideKeyboardTapGestureManager = HideKeyboardTapGestureManager()
     
     let etaAnnotations = [EtaAnnotation(title: "Paris", subtitle: "Capital City of France", coordinate: CLLocationCoordinate2D(latitude: 19.72372871622358, longitude: -101.17804168611394)), EtaAnnotation(title: "Prague", subtitle: "Capital City of Czechia", coordinate: CLLocationCoordinate2D(latitude: 19.7125186216248, longitude: -101.20178701162467))]
@@ -76,6 +77,72 @@ class ViewController: UIViewController, MKMapViewDelegate {
                     //Placing toilets on the map
                     self.miMapa.addAnnotations(self.etaAnnotations)
                 })
+        
+        /// Vamos A Carvar el Evento On Long Press
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(addResena))
+        longPress.minimumPressDuration = 1.2
+        
+        miMapa.addGestureRecognizer(longPress)
+        
+        
+    }
+    
+    //MARK: - ADD RESEÑA
+    @objc func addResena(gestureRecognizer:UIGestureRecognizer){
+        if gestureRecognizer.state == UIGestureRecognizer.State.began
+        {
+            let touchPoint = gestureRecognizer.location(in: miMapa)
+            let newCoordinates = miMapa.convert(touchPoint, toCoordinateFrom: miMapa)
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = newCoordinates
+
+            CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude), completionHandler: {(placemarks, error) -> Void in
+                if error != nil {
+                    print("Reverse geocoder failed with error" + error!.localizedDescription)
+                    return
+                }
+
+                if placemarks!.count > 0
+                {
+                    let pm = placemarks![0]
+
+                    // not all places have thoroughfare & subThoroughfare so validate those values
+                    annotation.title = pm.thoroughfare! + ", " + pm.subThoroughfare!
+                        
+                    annotation.subtitle = pm.subLocality
+                    self.miMapa.addAnnotation(annotation)
+                    print(pm)
+                }
+                else {
+                    annotation.title = "Unknown Place"
+                    self.miMapa.addAnnotation(annotation)
+                    print("Problem with the data received from geocoder")
+                }
+                
+                /// Ya tenemos la Coordenada
+                self.sendNewResena(ubicacion: newCoordinates)
+                
+            })
+        }
+    }
+    
+    //MARK: - Send New Reseña
+    func sendNewResena(ubicacion: CLLocationCoordinate2D?) {
+        newUbicacion = ubicacion
+        performSegue(withIdentifier: "newResena", sender: self)
+        
+    }
+    
+    
+    //MARK: - Prepare For Segue To NewResena
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "newResena")
+        {
+            if let newResenaVC = segue.destination as? NewResenaViewController
+            {
+                newResenaVC.miUbicacion = newUbicacion
+            }
+        }
     }
 
     
@@ -101,7 +168,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         present(alert, animated: true, completion: nil)
     }
     
-    
+    //MARK: - Renderizamos mis Annotations
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
     {
             
@@ -120,6 +187,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
             
             annotationEtaView.setDetailShowButton()
             annotationEtaView.rightButton?.addTarget(self, action: #selector(detailButtonTapped), for: .touchUpInside)
+            annotationEtaView.leftButton?.addTarget(self, action: #selector(navigateTo), for: .touchUpInside)
             
             annotationView = annotationEtaView
         }
@@ -127,11 +195,19 @@ class ViewController: UIViewController, MKMapViewDelegate {
         return annotationView
     }
     
+    //MARK: - Navegamos a una Ubicacion
+    @objc func navigateTo()
+    {
+        print("NAVIGATE \(miMapa.selectedAnnotations[0].title! ?? "SOME")")
+    }
+    
+    //MARK: - Abrimos una Ubicacion
     @objc func detailButtonTapped()
     {
         print("OPEN \(miMapa.selectedAnnotations[0].title! ?? "SOME")")
     }
     
+    //MARK: - DID SELECT ANNOTATION
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)
     {
         guard let annotation = view.annotation else {return}
