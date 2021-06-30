@@ -277,11 +277,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnA-pe-kyW" customClass="RateView" customModule="FindFood" customModuleProvider="target">
-                                        <rect key="frame" x="32" y="35" width="350" height="50"/>
+                                        <rect key="frame" x="67" y="35" width="280" height="50"/>
                                         <color key="backgroundColor" systemColor="tertiarySystemFillColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="EAg-aO-6VP"/>
-                                            <constraint firstAttribute="width" constant="350" id="hNc-V9-j6s"/>
+                                            <constraint firstAttribute="width" constant="280" id="hNc-V9-j6s"/>
                                         </constraints>
                                     </view>
                                 </subviews>
