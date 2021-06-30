@@ -57,4 +57,16 @@ class MenuViewController: UIViewController {
         btnFavoritos.layer.shadowOpacity = 0.2
     }
     
+    
+    //MARK - mis Funciones
+    @IBAction func btnSalir(_ sender: UIButton) {
+        
+        let defaults = UserDefaults.standard
+        defaults.removeObject(forKey: "email")
+        defaults.synchronize()
+        
+        performSegue(withIdentifier: "SingOut", sender: self)
+        
+    }
+    
 }

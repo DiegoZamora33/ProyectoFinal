@@ -86,10 +86,23 @@ class OnboardingViewController: UIViewController {
         /// CoreLocation Delegate
         coreLocation.delegate = self
         
-        
-        /// Mostramos mi Onboarding
+                
+        /// Mostramos mi Loading
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: LoadingAlert.bind {
-            self.renderOnboarding()
+            
+            /// Verificamos si ya esta guardada la sesion
+            let defaults = UserDefaults.standard
+            if (defaults.value(forKey: "email") as? String) != nil{
+                
+                /// Nos vamos hata HOME
+                self.performSegue(withIdentifier: "Home", sender: self)
+            }
+            else
+            {
+                /// Mostramos mi Onboarding
+                self.renderOnboarding()
+            }
+            
         })
         
     }

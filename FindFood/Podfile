@@ -11,6 +11,13 @@ target 'FindFood' do
   pod 'SideMenu', '~> 6.5'
   pod 'LoadingAlert', '~> 1.3'
   pod 'OnboardKit', '~> 1.5'
+  pod 'CommonKeyboard'
+  
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
+  
   
 end
 
