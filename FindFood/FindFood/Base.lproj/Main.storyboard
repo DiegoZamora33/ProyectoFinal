@@ -166,7 +166,7 @@
                                                     <color key="titleColor" systemColor="systemBlueColor"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="G3x-GD-ZGi" kind="presentation" id="siZ-U1-zN7"/>
+                                                    <segue destination="G3x-GD-ZGi" kind="show" id="ZrR-ml-GRH"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -292,11 +292,11 @@
             <objects>
                 <viewController id="G3x-GD-ZGi" customClass="CrearCuentaViewController" customModule="FindFood" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dmF-n6-j5R">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1nC-v1-OO8">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DQI-rI-ZQr">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
@@ -498,6 +498,7 @@
                             <constraint firstAttribute="bottom" secondItem="1nC-v1-OO8" secondAttribute="bottom" id="kiU-8u-ayk"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="5bX-P5-2Ag"/>
                     <connections>
                         <outlet property="miEmail" destination="ddY-SU-leJ" id="e5O-SA-VoS"/>
                         <outlet property="miNombre" destination="8cD-zk-U3k" id="Ehc-9V-vRk"/>
