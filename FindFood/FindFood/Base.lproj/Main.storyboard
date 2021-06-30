@@ -277,11 +277,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnA-pe-kyW" customClass="RateView" customModule="FindFood" customModuleProvider="target">
-                                        <rect key="frame" x="72" y="35" width="270" height="50"/>
+                                        <rect key="frame" x="32" y="35" width="350" height="50"/>
                                         <color key="backgroundColor" systemColor="tertiarySystemFillColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="EAg-aO-6VP"/>
-                                            <constraint firstAttribute="width" constant="270" id="hNc-V9-j6s"/>
+                                            <constraint firstAttribute="width" constant="350" id="hNc-V9-j6s"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -671,10 +671,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="118"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FeA-w8-pWR" customClass="RateView" customModule="FindFood" customModuleProvider="target">
-                                        <rect key="frame" x="74" y="34.5" width="266" height="49"/>
+                                        <rect key="frame" x="67" y="34" width="280" height="50"/>
                                         <color key="backgroundColor" systemColor="tertiarySystemFillColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="49" id="vch-NQ-kSJ"/>
+                                            <constraint firstAttribute="width" constant="280" id="aav-QB-oxP"/>
+                                            <constraint firstAttribute="height" constant="50" id="pIX-eK-avb"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -685,10 +686,9 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="tertiarySystemFillColor"/>
                                 <constraints>
-                                    <constraint firstItem="FeA-w8-pWR" firstAttribute="leading" secondItem="44W-DD-QfT" secondAttribute="leading" constant="74" id="dJU-yp-1c4"/>
-                                    <constraint firstItem="FeA-w8-pWR" firstAttribute="centerX" secondItem="44W-DD-QfT" secondAttribute="centerX" id="nMu-nn-z8T"/>
+                                    <constraint firstItem="FeA-w8-pWR" firstAttribute="centerX" secondItem="44W-DD-QfT" secondAttribute="centerX" id="UhI-sd-v2y"/>
+                                    <constraint firstItem="FeA-w8-pWR" firstAttribute="centerY" secondItem="44W-DD-QfT" secondAttribute="centerY" id="dge-pk-NTB"/>
                                     <constraint firstAttribute="height" constant="118" id="ufn-NL-7RZ"/>
-                                    <constraint firstItem="FeA-w8-pWR" firstAttribute="centerY" secondItem="44W-DD-QfT" secondAttribute="centerY" id="xXF-UR-uQ5"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PfW-HQ-W9L">
@@ -1010,7 +1010,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="VxT-Pr-stQ"/>
         <segue reference="ZGB-2j-wmp"/>
         <segue reference="6VI-cw-4Sm"/>
     </inferredMetricsTieBreakers>
