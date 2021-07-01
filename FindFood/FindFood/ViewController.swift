@@ -214,10 +214,9 @@ class ViewController: UIViewController, MKMapViewDelegate {
         miMapa.setRegion(region, animated: true)
         miMapa.showsUserLocation = true
         
-        let alert = UIAlertController(title: "Tu estas Aqui!!!", message: "Se Ecuentran 4 Restaurantes cerca de ti", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Tu estas Aqui!!!", message: "FindFood accedió a tu Ubicacion Actual", preferredStyle: .alert)
         
-        let actionMas = UIAlertAction(title: "Ver mas...", style: .default, handler: nil)
-        let actionLuego = UIAlertAction(title: "Despues", style: .destructive, handler: nil)
+        let actionMas = UIAlertAction(title: "OK", style: .default, handler: nil)
         
         alert.addAction(actionLuego)
         alert.addAction(actionMas)
