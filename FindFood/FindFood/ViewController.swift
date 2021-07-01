@@ -29,6 +29,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     let hideKeyboardTapGestureManager = HideKeyboardTapGestureManager()
     
     var etaAnnotations = [EtaAnnotation]()
+    var miRestaurant: String?
     
     /// Agregar la referencia a la BD Firestore
     let db = Firestore.firestore()
@@ -196,6 +197,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
             if let listResenaVC = segue.destination as? ListaResenasViewController
             {
                 listResenaVC.ubicacion = newUbicacion
+                listResenaVC.miRestaurant = miRestaurant
             }
         }
     }
@@ -374,6 +376,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
         if annotation is MKUserLocation {return}
         
         print("Touch: \(annotation.title! ?? "SOME")")
+        miRestaurant = annotation.title!
+        
     }
     
     /// Para Mostrar Errores ALerta

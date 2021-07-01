@@ -52,8 +52,8 @@ class NewResenaViewController: UIViewController {
         
         if(laResena != nil)
         {
-            miRestaurant.text = laResena?.restaurant
-            miPlatillo.text = laResena?.platillo
+            miRestaurant.text = laResena?.restaurant!
+            miPlatillo.text = laResena?.platillo!
             myRateView.rating = (laResena?.puntuacion)!
         }
         

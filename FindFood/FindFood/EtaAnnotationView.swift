@@ -35,7 +35,6 @@ class EtaAnnotationView: MKAnnotationView {
         //Detailed toilet info button
         rightButton = UIButton.init(type: .detailDisclosure)
         rightButton?.tintColor = pinColor
-        rightButton?.setImage(UIImage(systemName: "sun.min"), for: .normal)
         
         rightCalloutAccessoryView = rightButton
         

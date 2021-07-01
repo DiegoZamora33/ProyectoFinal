@@ -88,7 +88,10 @@ class ListaResenasViewController: UIViewController, UITableViewDelegate, UITable
                             return
                         }
                         
-                        self.misResenas.append(Resena(platillo: platillo, puntuacion: puntuacion, texto: texto, usuario: usuario, restaurant: restaurant))
+                        if restaurant == self.miRestaurant {
+                            
+                            self.misResenas.append(Resena(platillo: platillo, puntuacion: puntuacion, texto: texto, usuario: usuario, restaurant: restaurant))
+                        }
                         
                         DispatchQueue.main.async {
                             self.miTabla.reloadData()
@@ -112,16 +115,14 @@ class ListaResenasViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let objCelda = miTabla.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        if(misResenas[indexPath.row].restaurant == miRestaurant!)
-        {
             objCelda.textLabel?.text = misResenas[indexPath.row].platillo
-            objCelda.detailTextLabel?.text = "\(String(describing: misResenas[indexPath.row].puntuacion)) Stars"
-        }
+        objCelda.detailTextLabel?.text = "\(misResenas[indexPath.row].puntuacion ?? 1) Stars"
+            
+            return objCelda
         
-                
-        return objCelda
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
