@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import GoogleSignIn
+
 class MenuViewController: UIViewController {
     
     //MARK: - Variables y Outlets
@@ -64,6 +66,8 @@ class MenuViewController: UIViewController {
         let defaults = UserDefaults.standard
         defaults.removeObject(forKey: "email")
         defaults.synchronize()
+        
+        GIDSignIn.sharedInstance().signOut() 
         
         performSegue(withIdentifier: "SingOut", sender: self)
         

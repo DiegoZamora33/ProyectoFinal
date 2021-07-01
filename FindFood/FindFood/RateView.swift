@@ -75,4 +75,6 @@ public class RateView: UIView {
             button.isSelected = index < rating
         }
     }
+    
+    
 }

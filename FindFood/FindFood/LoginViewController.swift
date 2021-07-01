@@ -9,8 +9,9 @@ import UIKit
 import LoadingAlert
 import HideKeyboardTapGestureManager
 import Firebase
+import GoogleSignIn
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, GIDSignInDelegate {
 
     //MARK: - Variables y Outlets
     @IBOutlet weak var inicioGoogle: UIButton!
@@ -23,9 +24,15 @@ class LoginViewController: UIViewController {
     let hideKeyboardTapGestureManager = HideKeyboardTapGestureManager()
     
     
+    
     //MARK: - DID LOAD
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /// Delegados de GoogleSingIn
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance().signIn()
         
         /// Agregamos Gesture Taps para ocultar Teclado
         hideKeyboardTapGestureManager.add(targets: [superView])
@@ -105,7 +112,7 @@ class LoginViewController: UIViewController {
     //MARK: - Mis Funciones
     @IBAction func btnGoogleGo(_ sender: UIButton) {
         
-        performSegue(withIdentifier: "Home", sender: self)
+        GIDSignIn.sharedInstance().signIn()  
         
     }
     
@@ -128,9 +135,9 @@ class LoginViewController: UIViewController {
                         defaults.synchronize()
                         
                         /// Navegar al Home
-                        //self.performSegue(withIdentifier: "Home", sender: self)
+                        self.performSegue(withIdentifier: "Home", sender: self)
                         
-                        self.navigationController?.popToRootViewController(animated: true)
+                        //self.navigationController?.popToRootViewController(animated: true)
                     }
                     
                 }
@@ -138,7 +145,7 @@ class LoginViewController: UIViewController {
         })
     }
     
-    
+ 
     /// Para Mostrar Errores ALerta
     func alertaMensaje(msj: String) {
         let alerta = UIAlertController(title: "FindFood", message: msj, preferredStyle: .alert)
@@ -146,4 +153,31 @@ class LoginViewController: UIViewController {
         present(alerta, animated: true, completion: nil)
     }
     
+}
+
+/// Extension GoogleSingIn
+extension LoginViewController {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if error == nil && user.authentication != nil{
+            let credencial = GoogleAuthProvider.credential(withIDToken: user.authentication.idToken, accessToken: user.authentication.accessToken)
+            
+            Auth.auth().signIn(with: credencial) { (authResult, error) in
+                if let result = authResult, error == nil {
+                    
+                    
+                    /// Guardamos mi Email
+                    let defaults = UserDefaults.standard
+                    defaults.set(result.user.email, forKey: "email")
+                    defaults.synchronize()
+                    
+                    
+                    self.performSegue(withIdentifier: "Home", sender: self)
+                    
+                }
+                else{
+                    self.alertaMensaje(msj: "Error al iniciar sesion con Google 🥲")
+                }
+            }
+        }
+    }
 }

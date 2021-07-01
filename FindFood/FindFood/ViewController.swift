@@ -10,6 +10,9 @@ import MapKit
 import CoreLocation
 import HideKeyboardTapGestureManager
 import SideMenu
+import LoadingAlert
+import Firebase
+import FirebaseFirestore
 
 
 class ViewController: UIViewController, MKMapViewDelegate {
@@ -18,14 +21,21 @@ class ViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var miMapa: MKMapView!
     @IBOutlet weak var boxSearch: UISearchBar!
     @IBOutlet weak var btnAddResena: UIButton!
+    @IBOutlet weak var miSol: UIImageView!
+    @IBOutlet weak var miClima: UILabel!
     
     var miUbicacion: CLLocation?
     var newUbicacion: CLLocationCoordinate2D?
     let hideKeyboardTapGestureManager = HideKeyboardTapGestureManager()
     
-    let etaAnnotations = [EtaAnnotation(title: "Paris", subtitle: "Capital City of France", coordinate: CLLocationCoordinate2D(latitude: 19.72372871622358, longitude: -101.17804168611394)), EtaAnnotation(title: "Prague", subtitle: "Capital City of Czechia", coordinate: CLLocationCoordinate2D(latitude: 19.7125186216248, longitude: -101.20178701162467))]
-
-   
+    var etaAnnotations = [EtaAnnotation]()
+    
+    /// Agregar la referencia a la BD Firestore
+    let db = Firestore.firestore()
+    
+    var myWeather = iWeatherManager()
+    
+    
     
     
     //MARK: - Managers
@@ -36,6 +46,9 @@ class ViewController: UIViewController, MKMapViewDelegate {
     //MARK: - DID LOAD
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /// Delegate iWeatherManager
+        myWeather.delegate = self
         
         /// Le damos un estilo Nice al ADD Resena
         btnAddResena.setTitleColor(.label, for: .normal)
@@ -71,13 +84,6 @@ class ViewController: UIViewController, MKMapViewDelegate {
         /// Iniciar la actualizacino de Localizacion
         coreLocation.startUpdatingLocation()
         
-        
-        /// Cargamos mis Annotatios
-        DispatchQueue.main.async(execute: {
-                    //Placing toilets on the map
-                    self.miMapa.addAnnotations(self.etaAnnotations)
-                })
-        
         /// Vamos A Carvar el Evento On Long Press
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(addResena))
         longPress.minimumPressDuration = 1.2
@@ -85,7 +91,62 @@ class ViewController: UIViewController, MKMapViewDelegate {
         miMapa.addGestureRecognizer(longPress)
         
         
+        /// Cargando mis Lugares
+        DispatchQueue.main.async {
+            self.cargarLugares()
+        }
+        
     }
+    
+    //MARK: - Cargar mis Lugares
+    func cargarLugares() {
+        db.collection("retaurantes").order(by: "fechaCreacion").addSnapshotListener() { (querySnapshot, err) in
+            
+            /// Limpiamos mi Arreglo
+            self.etaAnnotations = []
+            
+            if let err = err {
+                print("Error getting documents: \(err)")
+                self.alertaMensaje(msj: "Error getting documents: \(err) 🙁")
+            } else {
+                /// Recorriendo mis Documentos
+                if let snapshotDocumentos = querySnapshot?.documents{
+                    
+                    print(snapshotDocumentos.count)
+                    
+                    for document in snapshotDocumentos {
+                        
+                        print("AAJJJEJJEJEJE")
+                        /// Llenando mi Arreglo de Chats
+                        let datos = document.data()
+                        
+                        guard let miRestaurant = datos["restaurant"] as? String  else {
+                            return
+                        }
+                        
+                        guard let miLat = datos["lat"] as? Double  else {
+                            return
+                        }
+                        
+                        guard let miLon = datos["lon"] as? Double  else {
+                            return
+                        }
+                        
+                        self.etaAnnotations.append(EtaAnnotation(title: miRestaurant, subtitle: "FindFood", coordinate: CLLocationCoordinate2D(latitude: miLat, longitude: miLon)))
+                        
+                        //DispatchQueue.main.async {
+                            //self.miMapa.addAnnotations(self.etaAnnotations)
+                        //}
+                        
+                        print("\n\n\nAAAAAAA \(miRestaurant) \(miLat) \(miLon)")
+                    }
+                    
+                    self.miMapa.addAnnotations(self.etaAnnotations)
+                }
+            }
+        }
+    }
+    
     
     //MARK: - ADD RESEÑA
     @objc func addResena(gestureRecognizer:UIGestureRecognizer){
@@ -99,24 +160,10 @@ class ViewController: UIViewController, MKMapViewDelegate {
             CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude), completionHandler: {(placemarks, error) -> Void in
                 if error != nil {
                     print("Reverse geocoder failed with error" + error!.localizedDescription)
+                    
+                    self.alertaMensaje(msj: "Reverse geocoder failed with error" + error!.localizedDescription)
+                    
                     return
-                }
-
-                if placemarks!.count > 0
-                {
-                    let pm = placemarks![0]
-
-                    // not all places have thoroughfare & subThoroughfare so validate those values
-                    annotation.title = pm.thoroughfare! + ", " + pm.subThoroughfare!
-                        
-                    annotation.subtitle = pm.subLocality
-                    self.miMapa.addAnnotation(annotation)
-                    print(pm)
-                }
-                else {
-                    annotation.title = "Unknown Place"
-                    self.miMapa.addAnnotation(annotation)
-                    print("Problem with the data received from geocoder")
                 }
                 
                 /// Ya tenemos la Coordenada
@@ -141,6 +188,14 @@ class ViewController: UIViewController, MKMapViewDelegate {
             if let newResenaVC = segue.destination as? NewResenaViewController
             {
                 newResenaVC.miUbicacion = newUbicacion
+            }
+        }
+        
+        if(segue.identifier == "listResena")
+        {
+            if let listResenaVC = segue.destination as? ListaResenasViewController
+            {
+                listResenaVC.ubicacion = newUbicacion
             }
         }
     }
@@ -168,43 +223,148 @@ class ViewController: UIViewController, MKMapViewDelegate {
         present(alert, animated: true, completion: nil)
     }
     
+    /// Funcion para trazar Ruta
+    func trazarRuta(destino: CLLocationCoordinate2D) {
+        guard let origen = coreLocation.location?.coordinate else { return }
+        
+        /// Crear PlaceMarks
+        let origenPlaceMark = MKPlacemark(coordinate: origen)
+        let destinoPlaceMark = MKPlacemark(coordinate: destino)
+        
+        /// Crear ITEMs
+        let origenItem = MKMapItem(placemark: origenPlaceMark)
+        let destinoItem = MKMapItem(placemark: destinoPlaceMark)
+        
+        /// Solicitud de Ruta
+        let solicitudDestino = MKDirections.Request()
+        solicitudDestino.source = origenItem
+        solicitudDestino.destination = destinoItem
+        
+        /// Medio de Transporte
+        solicitudDestino.transportType = .automobile
+        solicitudDestino.requestsAlternateRoutes = true
+        
+        /// Calcular la Ruta
+        let address = MKDirections(request: solicitudDestino)
+        address.calculate { (respuesta: MKDirections.Response?, error: Error?) in
+            
+            /// Variable Segura
+            guard let respuestaSegura = respuesta else {
+                if let error = error {
+                    print("Sucedió un Error: \(error.localizedDescription)")
+                }
+                return
+            }
+            
+            /// Si todo sale bien
+            let ruta = respuestaSegura.routes[0]
+            
+            /// Agregar Anotation Punto Medio
+            let routeAnnotation = MKPointAnnotation()
+            
+            let middlePoint = ruta.polyline.points()[ruta.polyline.pointCount/2].coordinate
+            
+            
+            routeAnnotation.coordinate = middlePoint
+            routeAnnotation.title = "Distancia"
+            routeAnnotation.subtitle = "\(ruta.distance/1000) KM"
+            
+            
+            self.miMapa.addAnnotation(routeAnnotation)
+
+            
+            /// Agregar al Mapa una Superposicion
+            self.miMapa.addOverlay(ruta.polyline)
+            self.miMapa.setVisibleMapRect(ruta.polyline.boundingMapRect, animated: true)
+            
+        }
+    }
+    
+    
+    /// Funcion para Agregar la SuperPosicion al Mapa
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        
+        let renderizado = MKPolylineRenderer(overlay: overlay as! MKPolyline)
+        
+        renderizado.strokeColor = .systemBlue
+        
+        
+        return renderizado
+    }
+    
     //MARK: - Renderizamos mis Annotations
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?
     {
             
-        if annotation is MKUserLocation {return nil}
-        
-        var annotationView = MKAnnotationView()
-        
-        if let reusableAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "etaAnnotation") {
-            annotationView = reusableAnnotationView
-        }
-        else {
-            let annotationEtaView = EtaAnnotationView(annotation: annotation, reuseIdentifier: "etaAnnotation")
-            ///annotationEtaView.pinColor = UIColor(red: 1.00, green: 0.50, blue: 0.00, alpha: 1.0)
+        if annotation is MKUserLocation {
+            let view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
             
-            annotationEtaView.image = UIImage(named: "iconFindFood")
+            view.pinTintColor = UIColor.blue
+            view.animatesDrop = true
+            view.canShowCallout = true
             
-            annotationEtaView.setDetailShowButton()
-            annotationEtaView.rightButton?.addTarget(self, action: #selector(detailButtonTapped), for: .touchUpInside)
-            annotationEtaView.leftButton?.addTarget(self, action: #selector(navigateTo), for: .touchUpInside)
             
-            annotationView = annotationEtaView
+            view.isSelected = true
+            
+            
+            return view
+            
         }
         
-        return annotationView
+        if annotation.title == "Distancia"
+        {
+            let view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
+                
+            view.pinTintColor = UIColor.red
+            view.animatesDrop = true
+            view.canShowCallout = true
+            
+            
+            view.isSelected = true
+            
+            
+            return view;
+        }
+        else
+        {
+            var annotationView = MKAnnotationView()
+            
+            if let reusableAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "etaAnnotation") {
+                annotationView = reusableAnnotationView
+            }
+            else {
+                let annotationEtaView = EtaAnnotationView(annotation: annotation, reuseIdentifier: "etaAnnotation")
+                ///annotationEtaView.pinColor = UIColor(red: 1.00, green: 0.50, blue: 0.00, alpha: 1.0)
+                
+                annotationEtaView.image = UIImage(named: "iconFindFood")
+                
+                annotationEtaView.setDetailShowButton()
+                annotationEtaView.rightButton?.addTarget(self, action: #selector(detailButtonTapped), for: .touchUpInside)
+                annotationEtaView.leftButton?.addTarget(self, action: #selector(navigateTo), for: .touchUpInside)
+                
+                annotationView = annotationEtaView
+            }
+            
+            return annotationView
+        }
+        
+        
     }
     
     //MARK: - Navegamos a una Ubicacion
     @objc func navigateTo()
     {
         print("NAVIGATE \(miMapa.selectedAnnotations[0].title! ?? "SOME")")
+        trazarRuta(destino: miMapa.selectedAnnotations[0].coordinate)
     }
     
     //MARK: - Abrimos una Ubicacion
     @objc func detailButtonTapped()
     {
         print("OPEN \(miMapa.selectedAnnotations[0].title! ?? "SOME")")
+        
+        performSegue(withIdentifier: "listResena", sender: self)
+        
     }
     
     //MARK: - DID SELECT ANNOTATION
@@ -216,6 +376,12 @@ class ViewController: UIViewController, MKMapViewDelegate {
         print("Touch: \(annotation.title! ?? "SOME")")
     }
     
+    /// Para Mostrar Errores ALerta
+    func alertaMensaje(msj: String) {
+        let alerta = UIAlertController(title: "FindFood", message: msj, preferredStyle: .alert)
+        alerta.addAction(UIAlertAction(title: "Aceptar", style: .cancel, handler: nil))
+        present(alerta, animated: true, completion: nil)
+    }
 }
 
 //MARK: - Extension CLLocationManagerDelegate
@@ -223,9 +389,16 @@ extension ViewController: CLLocationManagerDelegate{
     
     /// Did Update Locations
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        if let ubicacion = locations.first {
-            self.miUbicacion = ubicacion
+        if let coordenadas = locations.first {
+            coreLocation.stopUpdatingLocation()
+            self.miUbicacion = coordenadas
+            
+            let latitud = coordenadas.coordinate.latitude
+            let longitud = coordenadas.coordinate.longitude
+            
+            print("Lat: \(latitud)  :  \(longitud)")
+            
+            myWeather.searchCity(lat: latitud, lon: longitud)
         }
         
     }
@@ -245,4 +418,109 @@ extension ViewController: UISearchBarDelegate
         boxSearch.resignFirstResponder()
         
     }
+}
+
+
+//MARK: - Extension para consumir API Clima
+extension ViewController: iWeatherDelegate
+{
+    /// Mi Protocolo iWeather
+    func getWeather(weatherData: iWeatherData?, httpResponse: URLResponse?, error: Error?) {
+        
+        /// Esperamos a la Tarea Asincrona
+        DispatchQueue.main.async {
+            if(weatherData != nil)
+            {
+                print("City: \(String(describing: weatherData!.name))")
+                
+                /// Pintamos mis datos
+                
+                self.miClima.text = "\(weatherData!.name), \(weatherData!.weather[0].description.capitalized) \(String(format: "%0.0f", weatherData!.main.temp)) °C (Min: \(String(format: "%0.1f", weatherData!.main.temp_min)) °C - Max: \(String(format: "%0.1f", weatherData!.main.temp_max)) °C"
+
+                
+                let urlImage = "https://openweathermap.org/img/wn/\(String(weatherData!.weather[0].icon))@4x.png"
+                
+                self.cargarImagen(urlString: urlImage)
+                
+                self.miSol.contentMode = UIView.ContentMode.scaleAspectFill
+                self.miSol.sizeToFit()
+            }
+            else
+            {
+                /// Alert para notificar algun error
+                var miError: String
+                var title: String
+                
+                if(error != nil)
+                {
+                    print("City: \(String(describing: error!.localizedDescription))")
+                    
+                    title = "Fatal Error"
+                    miError = error!.localizedDescription
+                }
+                else
+                {
+                    title = "Error"
+                    miError = "Ciudad no Encontrada"
+                }
+                
+                
+                let alert = UIAlertController(title: title, message: miError, preferredStyle: .alert)
+                
+                let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+                
+                alert.addAction(action)
+                
+                self.present(alert, animated: true, completion: nil)
+                
+                /// Obtener ciudad Actual GPS
+                self.coreLocation.startUpdatingLocation()
+                
+            }
+            
+            if(httpResponse != nil)
+            {
+                print("Response: \(httpResponse!)")
+            }
+            
+            
+        }
+    }
+    
+    // MARK: - Cargar Imagen desde API
+    func cargarImagen(urlString: String) {
+
+            //1.- Obtener los datos
+
+            guard let url = URL(string: urlString) else {
+
+                return
+
+            }
+
+            let tareaObtenerDatos = URLSession.shared.dataTask(with: url) { (datos, _, error) in
+
+                guard let datosSeguros = datos, error == nil else {
+
+                    return
+
+                }
+
+                DispatchQueue.main.async {
+
+                    //2.- Convertir los datos en imagen
+
+                    let imagen = UIImage(data: datosSeguros)
+
+                    //3.- Asignar la imagen a la imagen previamente creada
+
+                    self.miSol.image = imagen
+
+                }
+
+            }
+
+            tareaObtenerDatos.resume()
+
+        }
 }

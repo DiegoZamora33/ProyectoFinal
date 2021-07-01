@@ -18,6 +18,8 @@
 		A499410A268AEEEF0079391C /* ListaResenasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4994109268AEEEF0079391C /* ListaResenasViewController.swift */; };
 		A4B60E80268C15FF00F09299 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A4B60E7F268C15FF00F09299 /* GoogleService-Info.plist */; };
 		A4B60E82268C1B8E00F09299 /* CrearCuentaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B60E81268C1B8E00F09299 /* CrearCuentaViewController.swift */; };
+		A4B60E85268D5F1D00F09299 /* iWeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B60E83268D5F1D00F09299 /* iWeatherData.swift */; };
+		A4B60E86268D5F1D00F09299 /* iWeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B60E84268D5F1D00F09299 /* iWeatherManager.swift */; };
 		A4BF4D9F2682ECEE0085854B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BF4D9E2682ECEE0085854B /* AppDelegate.swift */; };
 		A4BF4DA12682ECEE0085854B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BF4DA02682ECEE0085854B /* SceneDelegate.swift */; };
 		A4BF4DA32682ECEE0085854B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BF4DA22682ECEE0085854B /* ViewController.swift */; };
@@ -61,6 +63,8 @@
 		A4994109268AEEEF0079391C /* ListaResenasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListaResenasViewController.swift; sourceTree = "<group>"; };
 		A4B60E7F268C15FF00F09299 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../../../Downloads/01 Google FindFood/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A4B60E81268C1B8E00F09299 /* CrearCuentaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrearCuentaViewController.swift; sourceTree = "<group>"; };
+		A4B60E83268D5F1D00F09299 /* iWeatherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = iWeatherData.swift; path = "../../../../Unidad 2/App iWeather/App iWeather/iWeatherData.swift"; sourceTree = "<group>"; };
+		A4B60E84268D5F1D00F09299 /* iWeatherManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = iWeatherManager.swift; path = "../../../../Unidad 2/App iWeather/App iWeather/iWeatherManager.swift"; sourceTree = "<group>"; };
 		A4BF4D9B2682ECEE0085854B /* FindFood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindFood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4BF4D9E2682ECEE0085854B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4BF4DA02682ECEE0085854B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 		A4BF4D9D2682ECEE0085854B /* FindFood */ = {
 			isa = PBXGroup;
 			children = (
+				A4B60E83268D5F1D00F09299 /* iWeatherData.swift */,
+				A4B60E84268D5F1D00F09299 /* iWeatherManager.swift */,
 				A4B60E7F268C15FF00F09299 /* GoogleService-Info.plist */,
 				A4BF4D9E2682ECEE0085854B /* AppDelegate.swift */,
 				A4BF4DA02682ECEE0085854B /* SceneDelegate.swift */,
@@ -203,6 +209,7 @@
 				A4BF4D982682ECEE0085854B /* Frameworks */,
 				A4BF4D992682ECEE0085854B /* Resources */,
 				B3081230C2686DDF75A84F54 /* [CP] Embed Pods Frameworks */,
+				7FBC5D3A85E71F905C1FBFCF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -320,6 +327,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		7FBC5D3A85E71F905C1FBFCF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FindFood/Pods-FindFood-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FindFood/Pods-FindFood-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FindFood/Pods-FindFood-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B3081230C2686DDF75A84F54 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -366,6 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4B60E85268D5F1D00F09299 /* iWeatherData.swift in Sources */,
 				A4815AED2687085500DFFBD0 /* NewResenaViewController.swift in Sources */,
 				A4C68DA9268597F800020004 /* LoginViewController.swift in Sources */,
 				A46155F02685B1E300F602E4 /* DirectionButton.swift in Sources */,
@@ -381,6 +406,7 @@
 				A4BF4DA12682ECEE0085854B /* SceneDelegate.swift in Sources */,
 				A4C2A9FB26845E2E000D8A08 /* MenuViewController.swift in Sources */,
 				A46155F22685B24D00F602E4 /* Directions.swift in Sources */,
+				A4B60E86268D5F1D00F09299 /* iWeatherManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
