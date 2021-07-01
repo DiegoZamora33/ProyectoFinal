@@ -40,6 +40,8 @@ class ListaResenasViewController: UIViewController, UITableViewDelegate, UITable
     //MARK: - DID LOAD
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        miTitulo.text = miRestaurant!
 
         /// Delegado Tabla
         miTabla.delegate = self
