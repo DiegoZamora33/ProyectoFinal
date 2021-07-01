@@ -217,8 +217,6 @@ class ViewController: UIViewController, MKMapViewDelegate {
         let alert = UIAlertController(title: "Tu estas Aqui!!!", message: "FindFood accedió a tu Ubicacion Actual", preferredStyle: .alert)
         
         let actionMas = UIAlertAction(title: "OK", style: .default, handler: nil)
-        
-        alert.addAction(actionLuego)
         alert.addAction(actionMas)
         
         present(alert, animated: true, completion: nil)
