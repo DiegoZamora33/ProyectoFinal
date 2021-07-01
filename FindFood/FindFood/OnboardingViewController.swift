@@ -22,29 +22,26 @@ class OnboardingViewController: UIViewController {
                                  imageName: "logoFindFood",
                                  description: "Forma parte de nuestra enorme comunidad, con casi mas de 500,000 usuarios. \n\n FindFood es una aplicacion bastante Intuitiva y ademas totalmete GRATIS.")
 
-       let pageTwo = OnboardPage(title: "Habit Entries",
+       let pageTwo = OnboardPage(title: "Publica Tus Reseñas",
                                  imageName: "Onboarding2",
-                                 description: "An entry is created for every day you need to complete each habit.")
+                                 description: "Podras publicar reseñas sobre restaurantes, platillos y lo mejor de todo es que toda la comunudad FindFood las podran ver")
 
-       let pageThree = OnboardPage(title: "Marking and Tracking",
-                                   imageName: "Onboarding3",
-                                   description: "By marking entries as Done you can track your progress.")
 
-        let pageFour = OnboardPage(title: "Notifications",
-                                       imageName: "Onboarding4",
-                                       description: "Turn on notifications to get reminders and keep up with your goals.",
-                                       advanceButtonTitle: "Decide Later",
-                                       actionButtonTitle: "Enable Notifications",
+        let pageFour = OnboardPage(title: "Activa GPS",
+                                       imageName: "Onboarding1",
+                                       description: "Permite a la App FindFood a Acceder a Tu Ubicacion",
+                                       advanceButtonTitle: "Decidir Luego",
+                                       actionButtonTitle: "Enable GPS",
                                        action: { [weak self] completion in
                                         self?.showAlert(completion)
             })
 
-       let pageFive = OnboardPage(title: "All Ready",
-                                  imageName: "Onboarding5",
-                                  description: "You are all set up and ready to use Habitat. Adding your first habit.",
+       let pageFive = OnboardPage(title: "Todo Listo",
+                                  imageName: "iconFindFood",
+                                  description: "Todo esta listo, ya podemos comenzar",
                                   advanceButtonTitle: "Done")
 
-       return [pageOne, pageTwo, pageThree, pageFour, pageFive]
+       return [pageOne, pageTwo, pageFour, pageFive]
      }()
     
     //MARK: - Render de Onboarding
