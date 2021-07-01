@@ -37,7 +37,7 @@ class OnboardingViewController: UIViewController {
             })
 
        let pageFive = OnboardPage(title: "Todo Listo",
-                                  imageName: "iconFindFood",
+                                  imageName: "letsFindFood",
                                   description: "Todo esta listo, ya podemos comenzar",
                                   advanceButtonTitle: "Done")
 
