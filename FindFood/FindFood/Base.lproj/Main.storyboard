@@ -715,10 +715,10 @@
                                 <rect key="frame" x="0.0" y="722" width="414" height="120"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZyN-UN-ZG4">
-                                        <rect key="frame" x="179.5" y="17.5" width="55" height="45"/>
+                                        <rect key="frame" x="184.5" y="17.5" width="45" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="XWh-6a-gUz"/>
-                                            <constraint firstAttribute="width" constant="55" id="bnm-s8-jl4"/>
+                                            <constraint firstAttribute="width" constant="45" id="bnm-s8-jl4"/>
                                         </constraints>
                                         <state key="normal" image="addIcon"/>
                                         <connections>
